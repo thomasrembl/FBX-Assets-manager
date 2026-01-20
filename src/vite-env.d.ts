@@ -38,6 +38,9 @@ interface Window {
     renameStockshot: (id: string, newName: string) => Promise<{ success: boolean; error?: string }>
     getStockshotThumbnail: (id: string) => Promise<string | null>
     getStockshotFrame: (id: string, framePercent: number) => Promise<string | null>
+    
+    // Listeners
     onImportProgress: (callback: (progress: { current: number; total: number; status: string } | null) => void) => void
+    onUpdateStatus: (callback: (status: string) => void) => void
   }
 }

@@ -34,50 +34,56 @@ function App() {
   } | null>(null)
   const [isLoading, setIsLoading] = useState(true)
 
-  useEffect(() => {
-    loadAll()
-  }, [])
+useEffect(() => {
+  loadAll()
+  
+  
+  // Listeners (pas dans le Promise.all)
+  window.electronAPI.onImportProgress((progress) => {
+    setImportProgress(progress)
+  })
+  
+  window.electronAPI.onUpdateStatus((status) => {
+    console.log('Update:', status)
+    alert(status)
+  })
+}, [])
 
-  const loadAll = async () => {
-    setIsLoading(true)
-    try {
-      const [assetsResult, texturesResult, stockshotsResult] = await Promise.all([
-        window.electronAPI.getAssets(),
-        window.electronAPI.getTextures(),
-        window.electronAPI.getStockshots(),
-        window.electronAPI.onImportProgress((progress) => {
-        setImportProgress(progress)
-      })
-        
-      ])
-      setAssets(assetsResult)
-      setTextures(texturesResult)
-      setStockshots(stockshotsResult)
-    } catch (error) {
-      console.error('Failed to load:', error)
-    } finally {
-      setIsLoading(false)
-    }
+const loadAll = async () => {
+  setIsLoading(true)
+  try {
+    const [assetsResult, texturesResult, stockshotsResult] = await Promise.all([
+      window.electronAPI.getAssets(),
+      window.electronAPI.getTextures(),
+      window.electronAPI.getStockshots(),
+    ])
+    setAssets(assetsResult)
+    setTextures(texturesResult)
+    setStockshots(stockshotsResult)
+  } catch (error) {
+    console.error('Failed to load:', error)
+  } finally {
+    setIsLoading(false)
   }
+}
+// Filtrage par recherche
+const filteredAssets = useMemo(() => {
+  if (!searchQuery.trim()) return assets
+  const q = searchQuery.toLowerCase()
+  return assets.filter(a => a.name.toLowerCase().includes(q))
+}, [assets, searchQuery])
 
-  // Filtrage par recherche
-  const filteredAssets = useMemo(() => {
-    if (!searchQuery.trim()) return assets
-    const q = searchQuery.toLowerCase()
-    return assets.filter(a => a.name.toLowerCase().includes(q))
-  }, [assets, searchQuery])
+const filteredTextures = useMemo(() => {
+  if (!searchQuery.trim()) return textures
+  const q = searchQuery.toLowerCase()
+  return textures.filter(t => t.name.toLowerCase().includes(q))
+}, [textures, searchQuery])
 
-  const filteredTextures = useMemo(() => {
-    if (!searchQuery.trim()) return textures
-    const q = searchQuery.toLowerCase()
-    return textures.filter(t => t.name.toLowerCase().includes(q))
-  }, [textures, searchQuery])
-
-  const filteredStockshots = useMemo(() => {
-    if (!searchQuery.trim()) return stockshots
-    const q = searchQuery.toLowerCase()
-    return stockshots.filter(s => s.name.toLowerCase().includes(q))
-  }, [stockshots, searchQuery])
+const filteredStockshots = useMemo(() => {
+  if (!searchQuery.trim()) return stockshots
+  const q = searchQuery.toLowerCase()
+  return stockshots.filter(s => s.name.toLowerCase().includes(q))
+}, [stockshots, searchQuery])
 
   // Import handlers
   const handleImportClick = async () => {
