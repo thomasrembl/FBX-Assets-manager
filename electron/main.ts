@@ -161,9 +161,6 @@ if (app.isPackaged) {
     mainWindow?.webContents.send('update-status', 'Mise à jour disponible, téléchargement...')
   })
   
-  autoUpdater.on('update-not-available', () => {
-    mainWindow?.webContents.send('update-status', 'Aucune mise à jour disponible')
-  })
   
   autoUpdater.on('download-progress', (progress) => {
     mainWindow?.webContents.send('update-status', `Téléchargement: ${Math.round(progress.percent)}%`)

@@ -28,7 +28,7 @@ export default {
           foreground: 'hsl(220 10% 50%)',
         },
         accent: {
-          DEFAULT: 'hsl(35 80% 50%)',
+          DEFAULT: '#7798a8',
           foreground: 'hsl(220 15% 6%)',
         },
       },

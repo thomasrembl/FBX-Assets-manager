@@ -1,6 +1,6 @@
 {
   "name": "asset-manager",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Local 3D asset management tool",
   "main": "dist-electron/main.js",
   "scripts": {
