@@ -14,7 +14,14 @@ export default defineConfig({
           build: {
             outDir: 'dist-electron',
             rollupOptions: {
-              external: ['electron', 'electron-store', 'archiver']
+              external: [
+                'electron', 
+                'electron-store', 
+                'archiver',
+                'ffmpeg-static',
+                'ffprobe-static',
+                'fluent-ffmpeg'
+              ]
             }
           }
         }
