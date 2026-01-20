@@ -151,31 +151,43 @@ const createWindow = () => {
 app.whenReady().then(() => {
   createWindow()
   
-  // Auto-update (uniquement en production)
-  if (app.isPackaged) {
-    autoUpdater.checkForUpdatesAndNotify()
-    
-    autoUpdater.on('update-available', () => {
-      mainWindow?.webContents.send('update-status', 'Une mise à jour est disponible, téléchargement en cours...')
+// Auto-update (uniquement en production)
+if (app.isPackaged) {
+  autoUpdater.on('checking-for-update', () => {
+    mainWindow?.webContents.send('update-status', 'Vérification des mises à jour...')
+  })
+  
+  autoUpdater.on('update-available', () => {
+    mainWindow?.webContents.send('update-status', 'Mise à jour disponible, téléchargement...')
+  })
+  
+  autoUpdater.on('update-not-available', () => {
+    mainWindow?.webContents.send('update-status', 'Aucune mise à jour disponible')
+  })
+  
+  autoUpdater.on('download-progress', (progress) => {
+    mainWindow?.webContents.send('update-status', `Téléchargement: ${Math.round(progress.percent)}%`)
+  })
+  
+  autoUpdater.on('update-downloaded', () => {
+    dialog.showMessageBox(mainWindow!, {
+      type: 'info',
+      title: 'Mise à jour disponible',
+      message: 'Une nouvelle version a été téléchargée. Redémarrer maintenant ?',
+      buttons: ['Redémarrer', 'Plus tard']
+    }).then((result) => {
+      if (result.response === 0) {
+        autoUpdater.quitAndInstall()
+      }
     })
-    
-    autoUpdater.on('update-downloaded', () => {
-      dialog.showMessageBox(mainWindow!, {
-        type: 'info',
-        title: 'Mise à jour disponible',
-        message: 'Une nouvelle version a été téléchargée. Redémarrer maintenant pour l\'installer ?',
-        buttons: ['Redémarrer', 'Plus tard']
-      }).then((result) => {
-        if (result.response === 0) {
-          autoUpdater.quitAndInstall()
-        }
-      })
-    })
-    
-    autoUpdater.on('error', (err) => {
-      console.error('Auto-update error:', err)
-    })
-  }
+  })
+  
+  autoUpdater.on('error', (err) => {
+    mainWindow?.webContents.send('update-status', 'Erreur: ' + err.message)
+  })
+  
+  autoUpdater.checkForUpdatesAndNotify()
+}
 })
 
 app.on('window-all-closed', () => {
