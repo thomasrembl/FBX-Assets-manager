@@ -1,6 +1,6 @@
 {
   "name": "asset-manager",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Local 3D asset management tool",
   "main": "dist-electron/main.js",
   "scripts": {
@@ -68,7 +68,7 @@
     "publish": {
       "provider": "github",
       "owner": "thomasrembl",
-      "repo": "asset-manager"
+      "repo": "FBX-Assets-manager"
     }
   }
 }

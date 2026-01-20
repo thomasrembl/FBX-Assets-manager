@@ -24,12 +24,13 @@ jobs:
       - name: Build Electron app
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: npm run electron:build
+        run: npm run electron:build -- --publish never
 
       - name: Upload to Release
         uses: softprops/action-gh-release@v1
         with:
           files: |
             release/*.exe
+            release/*.yml
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
