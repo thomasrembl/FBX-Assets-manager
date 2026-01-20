@@ -4,6 +4,7 @@ import { AssetGrid } from './components/AssetGrid'
 import { SearchBar } from './components/SearchBar'
 import { ImportModal } from './components/ImportModal'
 import { EmptyState } from './components/EmptyState'
+import { WindowControls } from './components/WindowControls'
 
 function App() {
   const [assets, setAssets] = useState<Asset[]>([])
@@ -121,6 +122,8 @@ function App() {
             </svg>
             Importer
           </button>
+        <div className="w-px h-6 bg-border" />
+        <WindowControls />
         </div>
       </header>
 

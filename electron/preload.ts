@@ -1,5 +1,6 @@
 import { contextBridge, ipcRenderer } from 'electron'
 
+
 // Exposer les APIs au renderer de manière sécurisée
 contextBridge.exposeInMainWorld('electronAPI', {
   // Assets
@@ -13,6 +14,12 @@ contextBridge.exposeInMainWorld('electronAPI', {
   // Images
   getAssetThumbnail: (assetId: string) => ipcRenderer.invoke('get-asset-thumbnail', assetId),
   readImageBase64: (imagePath: string) => ipcRenderer.invoke('read-image-base64', imagePath),
+
+  // Window controls
+  windowMinimize: () => ipcRenderer.send('window-minimize'),
+  windowMaximize: () => ipcRenderer.send('window-maximize'),
+  windowClose: () => ipcRenderer.send('window-close'),
+  windowIsMaximized: () => ipcRenderer.invoke('window-is-maximized'),
 })
 
 // Types pour TypeScript côté renderer

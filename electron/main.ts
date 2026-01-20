@@ -36,6 +36,7 @@ const createWindow = () => {
     height: 900,
     minWidth: 800,
     minHeight: 600,
+    icon: path.join(__dirname, '../public/icon.ico'),
     backgroundColor: '#0d0f12',
     titleBarStyle: 'hiddenInset',
     frame: process.platform === 'darwin' ? true : false,
@@ -95,6 +96,28 @@ app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) {
     createWindow()
   }
+})
+
+// ============== WINDOW CONTROLS ==============
+
+ipcMain.on('window-minimize', () => {
+  mainWindow?.minimize()
+})
+
+ipcMain.on('window-maximize', () => {
+  if (mainWindow?.isMaximized()) {
+    mainWindow.unmaximize()
+  } else {
+    mainWindow?.maximize()
+  }
+})
+
+ipcMain.on('window-close', () => {
+  mainWindow?.close()
+})
+
+ipcMain.handle('window-is-maximized', () => {
+  return mainWindow?.isMaximized()
 })
 
 // ============== IPC HANDLERS ==============

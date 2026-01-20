@@ -61,24 +61,6 @@ Les fichiers générés seront dans le dossier `release/`.
 
 L'app vérifie automatiquement les mises à jour au démarrage.
 
-### Setup initial
-
-1. Modifie `package.json` → remplace `GITHUB_USERNAME` par ton username GitHub
-2. Crée un repo GitHub pour l'app
-3. Génère un token GitHub avec les droits `repo` : https://github.com/settings/tokens
-
-### Publier une mise à jour
-
-1. Bump la version dans `package.json` (ex: `1.0.0` → `1.1.0`)
-2. Build et publie :
-   ```bash
-   # Windows
-   set GH_TOKEN=ton_github_token && npm run electron:build
-   
-   # Mac/Linux
-   GH_TOKEN=ton_github_token npm run electron:build
-   ```
-3. Les fichiers sont automatiquement uploadés sur GitHub Releases
 
 ### Comment ça marche
 

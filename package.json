@@ -7,13 +7,15 @@
     "dev": "vite",
     "build": "tsc && vite build && electron-builder",
     "preview": "vite preview",
-    "electron:dev": "concurrently \"vite\" \"electron .\"",
+    "electron:dev": "vite",
     "electron:build": "vite build && electron-builder"
   },
   "dependencies": {
     "archiver": "^7.0.0",
     "electron-store": "^8.2.0",
     "electron-updater": "^6.1.8",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
@@ -44,11 +46,16 @@
       "dist-electron/**/*"
     ],
     "win": {
-      "target": ["portable", "nsis"],
+      "target": [
+        "portable",
+        "nsis"
+      ],
       "icon": "public/icon.ico"
     },
     "mac": {
-      "target": ["dmg"],
+      "target": [
+        "dmg"
+      ],
       "icon": "public/icon.icns"
     },
     "publish": {

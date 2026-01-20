@@ -9,5 +9,10 @@ interface Window {
     deleteAsset: (assetId: string) => Promise<{ success: boolean; error?: string }>
     getAssetThumbnail: (assetId: string) => Promise<string | null>
     readImageBase64: (imagePath: string) => Promise<string | null>
+    // Window controls
+  windowMinimize: () => void
+  windowMaximize: () => void
+  windowClose: () => void
+  windowIsMaximized: () => Promise<boolean>
   }
 }
