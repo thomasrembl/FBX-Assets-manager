@@ -320,7 +320,7 @@ const filteredStockshots = useMemo(() => {
       {/* Header */}
       <header className="titlebar-drag flex-shrink-0 h-14 border-b border-border bg-card/50 backdrop-blur-sm flex items-center justify-between px-4">
         <div className="titlebar-no-drag flex items-center gap-4">
-          <h1 className="text-lg font-semibold text-foreground">Asset Manager</h1>
+          <h1 className="text-lg font-semibold text-foreground">Assets Manager</h1>
           <TabNav
             activeTab={activeTab}
             onChange={setActiveTab}
