@@ -1,6 +1,6 @@
 {
   "name": "asset-manager",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "Local 3D asset management tool",
   "main": "dist-electron/main.js",
   "scripts": {
@@ -44,7 +44,7 @@
   },
   "build": {
     "appId": "com.assetmanager.app",
-    "productName": "Asset Manager",
+    "productName": "Asset-Manager",
     "directories": {
       "output": "release"
     },
